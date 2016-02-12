@@ -1,5 +1,25 @@
 ## Lightweight Data science shellscripts
 
+Oh isn't unix lovely?
+When Excel/Gnumeric runs out of memory, bash/awk gets the job done in unix oneliner in 1 sec:
+
+    cat /tmp/test.csv | csvget 3 | grep '^[0-9]' | sort | histogram "%s %s\n" | sed 's/-.* / /g' | feedgnuplot \
+      --set 'xlabel "Day in May 2014" offset 0,-8 font ", 40"'     \
+      --set 'ylabel "Global Activity" offset -15,0 font ", 40"'    \
+      --histogram 0                \
+      --with boxes                 \
+      --binwidth 1                 \
+      --set 'style fill solid'     \
+      --xmin 1                     \
+      --ymin 0                     \
+      --set 'bmargin 13'           \
+      --set 'lmargin 30'           \
+      --set 'xtics offset 0,-2,0'  \
+      --set 'ytics offset 0,-2,0'  \
+      --set 'tics font ", 20"'     \
+      --set 'label font ", 20"'    \
+      --hardcopy /tmp/histogram-usage-global.png
+
 optional installs:
 
     apt-get install feedgnuplot pv pick
