@@ -4,8 +4,8 @@
 #
  
 fetch(){
-  IFS=''; cat - | sed 's/\\/\\\\\\\\/g' | while read line; do 
-    line="$(eval "echo \"$( echo "$line" | sed 's/"/\\"/g')\"")"; # process bash in snippet
+  IFS=''; cat - | sed 's/\\/\\\\\\\\/g' | while read -r line; do 
+    [[ "$line" =~ '$' ]] && line="$(eval "echo \"$( echo "$line" | sed 's/"/\\"/g')\"")"; 
     echo "$line"
   done
 }

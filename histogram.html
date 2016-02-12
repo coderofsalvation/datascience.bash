@@ -1,0 +1,7 @@
+#!/bin/bash 
+export BLOCK="&#9608"
+export FTM="<tr><td>%s</td><td>%s</td><td>%s</td></tr>\n"
+[[ ! -n $WIDTH ]] && export WIDTH=80 
+echo "<table>"
+cat - | histogram "$FTM"
+echo "</table>"

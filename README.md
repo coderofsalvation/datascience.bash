@@ -28,6 +28,10 @@ converts tabseperated values to commaseparated values
 
 add, replace, and delete header lines.
 
+> csvquotify 
+
+adds quotes to unquoted csv
+
 > dumbplot
 
 output plot on the terminal given list of X,Y coordinates using gnuplot
@@ -64,6 +68,10 @@ generates nice html to show differences
 > histogram
 
 awk script which renders ascii histogram based on piped input
+
+> histogram.html
+
+same as histogram but outputs an html table 
 
 > bashdown 
 
@@ -119,7 +127,7 @@ Split a file into pieces.
 
 > sort
 
-Sort the items.
+Sort the items (`sort -u` for numeric sort)
 
 > tail
 
@@ -127,7 +135,7 @@ Get the tail of the text, meaning the last lines of data or a file.
 
 > uniq (unique)
 
-Unique: make the items unique by removing duplicates.
+Unique: make the items unique by removing duplicates (`uniq -u` usually)
 
 > wc (word count)
 

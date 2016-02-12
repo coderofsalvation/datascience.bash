@@ -1,9 +1,12 @@
 #!/bin/bash 
+# example: cat foo.csv | csvget 1 3 | histogram 
+# example: cat foo.csv | csvget 1 3 | HTML=1 histogram
 [[ ! -n $WIDTH ]] && WIDTH=10
 [[ ! -n "$1"   ]] && FMT="%-20s %-20s %-20s\n" || FMT="$1"
+[[ ! -n $BLOCK ]] && BLOCK="█"
 cat - | awk '
   function foo(counts,max){ 
-    str=""; step=('$WIDTH'/max); steps=(counts*step); for(i=0;i<steps;i++) str=str"█"; return str; 
+    str=""; step=('$WIDTH'/max); steps=(counts*step); for(i=0;i<steps;i++) str=str"'"$BLOCK"'"; return str; 
   }
   NF > 0{ 
     counts[$0] = counts[$0] + 1; 
