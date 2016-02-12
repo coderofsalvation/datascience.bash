@@ -1,6 +1,8 @@
 ## Lightweight Data science shellscripts
 
-Poor man's R
+optional installs:
+
+    apt-get install feedgnuplot pv pick
 
 > csvget <columnnr>[,columnr2,..]
 
