@@ -1,0 +1,34 @@
+#!/bin/bash 
+# Present the user a bash Select menu, and let them pick
+# Try to be smart about multi-line responses
+
+# must take input on stdin if it might be multiline
+
+# get multiline input from stdin
+while read LINE </dev/stdin
+do
+        CHOICES+=( $LINE )
+done
+
+# add on anything specified as arguments
+while [ $# -gt 0 ]
+do
+        CHOICES+=( $1 )
+        shift
+done
+
+
+# if only one thing to pick, just pick it
+if [ ${#CHOICES[*]} -eq 1 ]
+then
+        echo $CHOICES
+        exit
+fi
+
+
+# eval set $CHOICES
+select CHOSEN in ${CHOICES[@]}
+do
+        echo $CHOSEN
+        exit
+done </dev/tty

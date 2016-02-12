@@ -1,0 +1,13 @@
+#!/bin/bash
+[[ ! -n $1 ]] && { echo "Usage: csv2rrd <input.csv> <output.rrd> <$1, $3, ...>"; exit 1; }
+
+
+cat - | sed 's/""/" "/g' | gawk -vFS='^"|"'$SEP'"|"$|"'$SEP'|'$SEP'"|'$SEP '{out=""; for(i=1;i<NF+1&&i<max;i++){ out=out"\t"$i }; print out }' \
+
+while read LINE; do
+    echo $LINE
+    ts=$(date -d "`echo $LINE | awk '{print $3 }' | sed s/,//`" +%s)
+#+%s | sed -r s/$/:/
+    temp=`echo "$LINE" | awk '{print $7}'`
+    echo "rrdtool update temps_take_2.rrd ${ts}:${temp}"
+done < "$1"

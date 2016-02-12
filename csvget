@@ -1,0 +1,13 @@
+# extracts fields from a csv like: "234","foo bar","foo"
+# usage: cat my.csv | csvget 2     (outputs: "foo bar")
+# @dependency: gawk
+
+[[ ! -n $SEP ]] && SEP=','
+[[ ! -n $SEPOUT ]] && SEPOUT=$SEP
+
+csvget(){
+  local fields="$*" ; fields="\$${fields// /\"$SEPOUT\"\$}"
+  cat - | sed 's/""/" "/g' | gawk -vFS='^"|"'$SEP'"|"$|"'$SEP'|'$SEP'"|'$SEP '{ sub(".*" $1 FS,""); print '${fields}' }'
+}
+
+csvget "$@"

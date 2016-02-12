@@ -1,0 +1,26 @@
+#!/usr/bin/awk -f
+BEGIN {
+    min="unset"
+    max=0
+}
+
+
+{
+    values[NR] = $1
+
+    total += $1
+    average = total/NR
+
+    if ($1 > max) max = $1
+    if (min == "unset" || $1 < $min) min = $1
+}
+
+END {
+    median=values[int(NR/2)]
+
+    print "MIN:", min
+    print "MAX:", max
+    print "TOTAL:", total
+    print "MEAN:", average
+    print "MEDIAN:", median
+}

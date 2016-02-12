@@ -1,0 +1,20 @@
+#!/bin/bash 
+
+[[ ! -n $3 ]] && { echo "Usage: USER=root csv2mysql <dbname> <tablename.csv>" && exit 1; }
+
+columns="$(head -n1 $3)"
+columns="${columns//[^[:alpha:]^,.]/_}"
+columns="$(echo "${columns//__/_}" | tr '[:upper:]' '[:lower:]' )"
+
+SEP=,
+LINEBREAK="\n"
+quote='"'
+sql=()
+sql+=("CREATE DATABASE IF NOT EXISTS $1;")
+sql+=("CREATE TABLE $2 ( ${columns//,/ varchar(255),} varchar(255) );")
+
+set -x
+for sqlline in "${sql[@]}"; do 
+  mysql -u $USER -p -e "$sqlline" $1
+done
+mysqlimport --fields-optionally-enclosed-by="$quote" --fields-terminated-by=$SEP --lines-terminated-by="$LINEBREAK" --user=$USER --password --delete --columns=$columns $1 $2.csv

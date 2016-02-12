@@ -1,0 +1,16 @@
+#!/bin/bash 
+[[ ! -n $WIDTH ]] && WIDTH=10
+[[ ! -n "$1"   ]] && FMT="%-20s %-20s %-20s\n" || FMT="$1"
+cat - | awk '
+  function foo(counts,max){ 
+    str=""; step=('$WIDTH'/max); steps=(counts*step); for(i=0;i<steps;i++) str=str"█"; return str; 
+  }
+  NF > 0{ 
+    counts[$0] = counts[$0] + 1; 
+    if ( max < counts[$0] ) max = counts[$0] ; 
+  } END { 
+    for (word in counts){ 
+      val=foo(counts[word],max); printf "'"$FMT"'",word,counts[word],val;
+    } 
+  }
+'
