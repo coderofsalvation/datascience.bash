@@ -1,0 +1,16 @@
+#!/bin/bash
+# higher order foreach for bash 
+#
+# example:
+#   source ./foreach
+#   declare -A foo
+#   foo["flop"]="one two"
+#
+#   bar(){ echo "$1 -> $2"; }
+#   foreach foo bar
+#   foreach foo bar
+
+foreach(){ 
+  arr="$(declare -p $1)" ; eval "declare -A f="${arr#*=}; 
+  for i in ${!f[@]}; do $2 "$i" "${f[$i]}"; done
+}

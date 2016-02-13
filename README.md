@@ -52,6 +52,10 @@ add, replace, and delete header lines.
 
 adds quotes to unquoted csv
 
+> foreach 
+
+higher order function for (associative) bash arrays `foreach arrayname <functionname>`
+
 > dumbplot
 
 output plot on the terminal given list of X,Y coordinates using gnuplot
